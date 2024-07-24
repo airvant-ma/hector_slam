@@ -2,10 +2,12 @@
 
 <launch>
   <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
-  <arg name="base_frame" default="base_footprint"/>
-  <arg name="odom_frame" default="nav"/>
-  <arg name="pub_map_odom_transform" default="true"/>
-  <arg name="scan_subscriber_queue_size" default="5"/>
+  <!-- <arg name="base_frame" default="base_footprint"/> -->
+  <arg name="base_frame" default="base_link"/>
+  <!--<arg name="odom_frame" default="nav"/> -->
+  <arg name="odom_frame" default="base_link"/>
+  <arg name="pub_map_odom_transform" default="false"/>
+  <arg name="scan_subscriber_queue_size" default="100"/>
   <arg name="scan_topic" default="scan"/>
   <arg name="map_size" default="2048"/>
   
@@ -15,6 +17,8 @@
     <param name="map_frame" value="map" />
     <param name="base_frame" value="$(arg base_frame)" />
     <param name="odom_frame" value="$(arg odom_frame)" />
+    
+    
     
     <!-- Tf use -->
     <param name="use_tf_scan_transformation" value="true"/>
@@ -52,6 +56,7 @@
   </node>
     
   <!--<node pkg="tf" type="static_transform_publisher" name="map_nav_broadcaster" args="0 0 0 0 0 0 map nav 100"/>-->
+  <node pkg="tf" type="static_transform_publisher" name="base_to_laser_broadcaster" args="0 0 0 0 0 0 base_link laser 100"/>
 </launch>
   
   
